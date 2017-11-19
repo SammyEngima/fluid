@@ -87,7 +87,6 @@ Item {
 
     Popup {
         function show() {
-            datepicker.show("MONTH")
             datePickerPopup.open()
         }
 
@@ -137,7 +136,6 @@ Item {
 
     Popup {
         function show() {
-            datepicker2.show("MONTH")
             datePickerPopup2.open()
         }
 

@@ -70,23 +70,22 @@ Picker {
     property var minDate: new Date(1976, 0, 1)
     property var maxDate: new Date(2150, 11, 31)
 
+    state: "month"
+    states: [
+        State {
+            name: "year"
+            PropertyChanges { target: dateSelector; visible: false }
+            PropertyChanges { target: yearSelector; visible: true; selectedDate: datePicker.selectedDate }
+        },
+        State {
+            name: "month"
+            PropertyChanges { target: dateSelector; visible: true }
+            PropertyChanges { target: yearSelector; visible: false; selectedDate: datePicker.selectedDate }
+        }
+    ]
+
     onSelectedDateChanged: {
         dateSelector.selectedDate = selectedDate
-    }
-
-    function show(type) {
-        switch(type) {
-        case "YEAR":
-            dateSelector.visible = false;
-            yearSelector.visible = true;
-            yearSelector.selectedDate = datePicker.selectedDate
-            break;
-        case "MONTH":
-            dateSelector.visible = true;
-            yearSelector.visible = false;
-            dateSelector.selectedDate = datePicker.selectedDate
-            break;
-        }
     }
 
     header: Item {
@@ -107,7 +106,7 @@ Picker {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: datePicker.show("YEAR")
+                    onClicked: datePicker.state = "year"
                 }
             }
 
@@ -122,7 +121,7 @@ Picker {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: datePicker.show("MONTH")
+                    onClicked: datePicker.state = "month"
                 }
             }
         }
